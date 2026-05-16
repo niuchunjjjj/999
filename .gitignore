@@ -1,0 +1,28 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Build output
+build/
+dist/
+out/
+
+# IDE / editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-workspace
+
+# Claude Code local settings (personal, not shared)
+.claude/settings.local.json
