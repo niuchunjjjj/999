@@ -1,17 +1,17 @@
 <script setup>
 import { ref, computed, nextTick, onMounted, onUnmounted } from 'vue'
 import { useGame } from './game/useGame'
-import GameHUD    from './components/GameHUD.vue'
+import LeftPanel  from './components/LeftPanel.vue'
 import PlayZone   from './components/PlayZone.vue'
 import HandZone   from './components/HandZone.vue'
-import ActionBar  from './components/ActionBar.vue'
+import DeckBadge  from './components/DeckBadge.vue'
 import GameModal  from './components/GameModal.vue'
 
 const { state, selectedCards, currentHand, scorePreview, initGame, toggleCard, playHand, discardHand } = useGame()
 
 // ── Modal ────────────────────────────────────────────────────────────────────
-const showModal  = ref(false)
-let modalTimer   = null
+const showModal = ref(false)
+let modalTimer  = null
 
 function handlePlay() {
   const gained = playHand()
@@ -71,28 +71,15 @@ onUnmounted(() => window.removeEventListener('resize', rescale))
   <div class="game-wrapper" :style="{ transform: `scale(${scale})` }">
     <div class="game-viewport">
 
-      <GameHUD
+      <!-- 左侧面板：得分 + 手牌信息 + 操作按钮 -->
+      <LeftPanel
         :score="state.score"
         :target="state.target"
         :hands-left="state.handsLeft"
         :discards-left="state.discardsLeft"
-      />
-
-      <PlayZone
-        :selected-cards="selectedCards"
         :current-hand="currentHand"
+        :selected-cards="selectedCards"
         :score-preview="scorePreview"
-        :flash-text="flashText"
-        :flash-visible="flashVisible"
-      />
-
-      <HandZone
-        :hand="state.hand"
-        :selected="state.selected"
-        @toggle="toggleCard"
-      />
-
-      <ActionBar
         :can-play="canPlay"
         :can-discard="canDiscard"
         @play="handlePlay"
@@ -100,6 +87,27 @@ onUnmounted(() => window.removeEventListener('resize', rescale))
         @restart="handleRestart"
       />
 
+      <!-- 中间主区：预览 + 手牌 -->
+      <div class="main-area">
+        <PlayZone
+          :selected-cards="selectedCards"
+          :flash-text="flashText"
+          :flash-visible="flashVisible"
+        />
+        <HandZone
+          :hand="state.hand"
+          :selected="state.selected"
+          @toggle="toggleCard"
+        />
+      </div>
+
+      <!-- 右侧牌堆 -->
+      <DeckBadge
+        :deck-count="state.deck.length"
+        :hand-count="state.hand.length"
+      />
+
+      <!-- 胜负弹窗 -->
       <GameModal
         :show="showModal"
         :status="state.status"
@@ -126,11 +134,25 @@ onUnmounted(() => window.removeEventListener('resize', rescale))
   border-radius: 16px;
   overflow: hidden;
   display: flex;
-  flex-direction: column;
-  box-shadow: 0 12px 48px rgba(0,0,0,.5);
+  flex-direction: row;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, .5);
   position: relative;
   background-image:
-    radial-gradient(ellipse at 50% 100%, rgba(0,0,0,.28) 0%, transparent 68%),
-    repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,.012) 20px, rgba(255,255,255,.012) 21px);
+    radial-gradient(ellipse at 60% 50%, rgba(0, 0, 0, .2) 0%, transparent 70%),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 20px,
+      rgba(255, 255, 255, .012) 20px,
+      rgba(255, 255, 255, .012) 21px
+    );
+}
+
+/* 中间区域：纵向排列 PlayZone + HandZone */
+.main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 </style>

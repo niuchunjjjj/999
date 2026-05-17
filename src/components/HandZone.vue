@@ -28,18 +28,20 @@ defineEmits(['toggle'])
 
 <style scoped>
 .hand-zone {
-  padding: 16px 24px 8px;
-  background: rgba(0,0,0,.22);
-  border-top: 1px solid rgba(255,255,255,.06);
+  padding: 12px 20px 14px;
+  background: rgba(0, 0, 0, .28);
+  border-top: 1px solid rgba(255, 255, 255, .07);
   flex-shrink: 0;
   overflow: visible;
 }
 .hand-zone-label {
-  font-size: 10px;
-  color: rgba(255,255,255,.38);
-  letter-spacing: 1px;
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, .3);
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  text-align: center;
 }
 .hand-cards {
   display: flex;
@@ -67,18 +69,12 @@ defineEmits(['toggle'])
 }
 
 @keyframes cardDealIn {
-  from {
-    opacity: 0;
-    transform: translateY(72px) scale(0.78) rotate(-4deg);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1) rotate(0deg);
-  }
+  from { opacity: 0; transform: translateY(72px) scale(0.78) rotate(-4deg); }
+  to   { opacity: 1; transform: translateY(0)    scale(1)    rotate(0deg);  }
 }
 
 @keyframes cardFlyOut {
-  0%   { opacity: 1; transform: translateY(0)    scale(1)    rotate(0deg); }
+  0%   { opacity: 1; transform: translateY(0)     scale(1)    rotate(0deg); }
   60%  { opacity: 1; transform: translateY(-48px) scale(0.9)  rotate(2deg); }
   100% { opacity: 0; transform: translateY(-88px) scale(0.75) rotate(4deg); }
 }
