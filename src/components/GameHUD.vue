@@ -15,11 +15,12 @@ defineProps({
     </div>
     <div class="hud-item">
       <div class="hud-label">当前分</div>
-      <div class="hud-value score">{{ score }}</div>
+      <!-- :key 变化时 Vue 重建元素，CSS animation 自动重播 -->
+      <div class="hud-value score score-pop" :key="score">{{ score }}</div>
     </div>
     <div class="hud-item">
       <div class="hud-label">剩余出牌</div>
-      <div class="hud-value plays">{{ handsLeft }}</div>
+      <div class="hud-value plays" :key="handsLeft">{{ handsLeft }}</div>
     </div>
     <div class="hud-item">
       <div class="hud-label">剩余弃牌</div>
@@ -68,4 +69,25 @@ defineProps({
 .hud-value.score    { color: var(--color-score); }
 .hud-value.plays    { color: var(--color-accent); }
 .hud-value.discards { color: #e06060; }
+
+/* 得分弹跳：key 变化时自动触发 */
+.score-pop {
+  animation: scorePop 600ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes scorePop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.5); color: #fff; text-shadow: 0 0 12px rgba(93,214,122,.8); }
+  100% { transform: scale(1); }
+}
+
+/* 剩余出牌减少时轻微抖动 */
+.hud-value.plays {
+  animation: playsShake 500ms ease both;
+}
+@keyframes playsShake {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.25) rotate(-3deg); }
+  60%  { transform: scale(1.1)  rotate(2deg); }
+  100% { transform: scale(1)    rotate(0deg); }
+}
 </style>
