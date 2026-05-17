@@ -37,8 +37,9 @@ npx serve .
 ```
 .
 ├── index.html        # 游戏主文件（单文件，含 HTML / CSS / JS）
-├── PRD.html          # 产品需求文档
-├── DESIGN.html       # 视觉设计规范
+├── docs/
+│   ├── PRD.html      # 产品需求文档
+│   └── DESIGN.html   # 视觉设计规范
 ├── agents/           # Claude Code 自定义 Agent 定义
 │   ├── fullstack-engineer.md
 │   ├── product-manager.md

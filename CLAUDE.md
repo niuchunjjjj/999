@@ -9,8 +9,8 @@ AI 全流程开发示范项目。核心产物是 `index.html`（小丑牌 V1.0.0
 | 路径 | 说明 |
 |------|------|
 | `index.html` | 游戏主文件，单文件架构（HTML + CSS + JS 合一），不拆分 |
-| `PRD.html` | 产品需求文档，开发前必读 |
-| `DESIGN.html` | 视觉设计规范，含 Design Tokens 和组件样式参考 |
+| `docs/PRD.html` | 产品需求文档，开发前必读 |
+| `docs/DESIGN.html` | 视觉设计规范，含 Design Tokens 和组件样式参考 |
 | `agents/*.md` | 自定义 Agent 源文件（安装目标：`~/.claude/agents/`） |
 | `slash/*.md` | 自定义斜杠命令源文件（安装目标：`~/.claude/commands/`） |
 
