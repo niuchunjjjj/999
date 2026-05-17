@@ -17,6 +17,9 @@ build/
 dist/
 out/
 
+# Node
+node_modules/
+
 # IDE / editors
 .vscode/
 .idea/
